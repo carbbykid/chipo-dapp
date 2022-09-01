@@ -1,4 +1,13 @@
 @import "./variable.scss";
+@import "./tailwind.scss";
+
+@font-face {
+  font-family: "Junegull";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/junegull.ttf");
+  font-display: swap;
+}
 
 html {
   scroll-behavior: smooth;
@@ -23,8 +32,26 @@ body {
 
 #__next {
   width: 100%;
-  background: #fff;
+  height: 100vh;
   overflow-x: hidden;
+
+  position: relative;
+
+  z-index: 1;
+  background-image: url("/images/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #0e0744;
+    opacity: 48%;
+    z-index: 2;
+  }
 }
 
 * {
