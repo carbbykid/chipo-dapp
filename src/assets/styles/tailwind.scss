@@ -10,4 +10,21 @@
     .subtitle {
         @apply text-aqua-pink
     }
+
+    .button {
+        @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second
+    }
+}
+
+.aqua-sidebar {
+    &::before {
+        content: "";
+        background:#130945;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 50%;
+        z-index: 11;
+        border-radius: 25px;
+    }
 }

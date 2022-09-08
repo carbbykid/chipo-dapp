@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "aqua-pink":"#d581ab"
+        "aqua-pink":"#d581ab",
+        "aqua-pink-second": "#c57370"
       }
     },
   },

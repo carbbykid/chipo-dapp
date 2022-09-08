@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { FaAngleDoubleLeft } from "react-icons/fa";
 import classNames from "classnames";
+import { spawn } from "child_process";
 
 const Sidebar = () => {
   const [toggleCollapse, setToggleCollapse] = useState(false);
@@ -12,9 +13,34 @@ const Sidebar = () => {
   const router = useRouter();
 
   const activeMenu = useMemo(
-    () => menuItems.find((menu) => menu.link === router.pathname),
+    () => {
+      for (const menu of menuItems) {
+        if (menu.link === router.pathname) return menu;
+        if (!menu.children || !menu.children.length) {
+          continue;
+        } else {
+          const submenu = menu.children.find(
+            (submenu) => submenu.link === router.pathname,
+          );
+
+          if (submenu) return submenu;
+          continue;
+        }
+      }
+    }, // menuItems.find((menu) => {
+
+    //   if (!menu.children || !!menu.children?.length) {
+    //     return menu.link === router.pathname;
+    //   } else {
+    //     return menu.children.find(
+    //       (submenu) => submenu.link === router.pathname,
+    //     );
+    //   }
+    // }),
     [router.pathname],
   );
+
+  console.log(activeMenu);
 
   const handleOnMouse = () => {
     setIsCollapse((prev) => !prev);
@@ -22,37 +48,53 @@ const Sidebar = () => {
 
   const getNavItemClasses = (menu: any) => {
     return classNames(
-      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap",
+      "cursor-pointer text-aqua-pink text-[25px] rounded w-full overflow-hidden whitespace-nowrap border-[#d581ab] border-b-2",
       {
-        ["bg-light-lighter"]: activeMenu?.id === menu.id,
+        ["text-white"]: activeMenu?.id === menu.id,
+        ["text-[#828282] pointer-events-none"]: menu.disabled === true,
+      },
+    );
+  };
+
+  const getNavSubItemClasses = (submenu: any) => {
+    return classNames(
+      "cursor-pointer text-aqua-pink text-[25px] rounded w-full overflow-hidden whitespace-nowrap",
+      {
+        ["text-white"]: activeMenu?.id === submenu.id,
+        ["text-[#828282] pointer-events-none"]: submenu.disabled === true,
       },
     );
   };
 
   return (
     <div
-      className={`h-screen px-4 pt-8 pb-4 bg-black border border-dashed relative ease-in duration-300 ${
-        toggleCollapse ? "w-[8%]" : "w-[18%]"
+      className={`aqua-sidebar h-screen border-[#d581ab] border-t-2 border-r-2 rounded-r-[25px] relative ease-in duration-300 ${
+        toggleCollapse ? "w-[8%]" : "w-[345px]"
       } `}
-      onMouseEnter={handleOnMouse}
-      onMouseLeave={handleOnMouse}
+      // onMouseEnter={handleOnMouse}
+      // onMouseLeave={handleOnMouse}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img
-            src="/images/logo.png"
-            alt="logo"
-            className="w-[120px] h-[120px]"
-          />
-          <span
-            className={`text-[2.5em] leading-[50px] text-[#c57370] ${
-              toggleCollapse ? "hidden" : ""
-            }`}
-          >
-            AQUA UNICORN
-          </span>
-        </div>
-        {isCollapse && (
+      <div className="relative z-[12]">
+        <div className="flex items-center justify-between">
+          <Link href={"/"}>
+            <a className="w-full flex items-center justify-between px-[15px] py-[15px] border-b-[2px] border-[#d581ab]">
+              <img
+                src="/images/logo.png"
+                alt="logo"
+                className="w-[100px] h-[100px]"
+              />
+              <span
+                className={`text-[42px] leading-[50px] text-[#e87481] ml-[15px] tracking-[3px] ${
+                  toggleCollapse ? "hidden" : ""
+                }`}
+              >
+                AQUA
+                <br />
+                UNICORN
+              </span>
+            </a>
+          </Link>
+          {/* {isCollapse && (
           <button
             className={`absolute right-5 top-5 rounded p-4 ${
               toggleCollapse ? "rotate-180" : ""
@@ -61,19 +103,43 @@ const Sidebar = () => {
           >
             <FaAngleDoubleLeft className="w-[25px] h-[25px]" />
           </button>
-        )}
-      </div>
-      <div className="mt-24">
-        {menuItems.map((menu) => {
-          const classes = getNavItemClasses(menu);
-          return (
-            <div key={menu.id} className={classes}>
-              <Link href={menu.link}>
-                <a className="text-aqua-pink">{menu.label}</a>
-              </Link>
-            </div>
-          );
-        })}
+        )} */}
+        </div>
+        <div>
+          {menuItems.map((menu) => {
+            const classes = getNavItemClasses(menu);
+            return (
+              <div key={menu.id} className={`${classes}`}>
+                <Link href={menu.link}>
+                  <a className="w-full h-full px-[30px] py-[17px] block hover:bg-[#000033]">
+                    {menu.label}
+                    {menu.note && (
+                      <span className="text-[#e3d752] text-[12px] ml-[9px]">
+                        {menu.note}
+                      </span>
+                    )}
+                  </a>
+                </Link>
+                {!!menu.children?.length && (
+                  <div className="pl-[40px]">
+                    {menu.children.map((submenu, idx) => {
+                      const classesSub = getNavSubItemClasses(submenu);
+                      return (
+                        <div key={idx} className={classesSub}>
+                          <Link href={submenu.link}>
+                            <a className="w-full h-full px-[30px] py-[8px] block hover:bg-[#000033]">
+                              {submenu.label}
+                            </a>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -92,16 +158,16 @@ const menuItems = [
     link: "/market-place",
     children: [
       {
-        id: 1,
+        id: 4.1,
         label: "IDLE",
         icon: "",
-        link: "market-place/idle",
+        link: "/market-place/idle",
       },
       {
-        id: 2,
+        id: 4.2,
         label: "WORKING",
         icon: "",
-        link: "market-place/working",
+        link: "/market-place/working",
       },
     ],
   },
