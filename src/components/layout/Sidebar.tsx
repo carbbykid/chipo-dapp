@@ -111,7 +111,7 @@ const Sidebar = () => {
             return (
               <div key={menu.id} className={`${classes}`}>
                 <Link href={menu.link}>
-                  <a className="w-full h-full px-[30px] py-[17px] block hover:bg-[#000033]">
+                  <a className="w-full h-full px-[30px] py-[17px] block hover:bg-[#000033] ease-in duration-200">
                     {menu.label}
                     {menu.note && (
                       <span className="text-[#e3d752] text-[12px] ml-[9px]">
@@ -150,26 +150,31 @@ export default Sidebar;
 const menuItems = [
   { id: 1, label: "DASHBOARD", icon: "", link: "/dashboard" },
   { id: 2, label: "MINT UNICORN", icon: "", link: "/mint-unicorn" },
-  { id: 3, label: "MY PETS", icon: "", link: "/my-pets" },
   {
-    id: 4,
-    label: "MARKET PLACE",
+    id: 3,
+    label: "MY PETS",
     icon: "",
-    link: "/market-place",
+    link: "/my-pets",
     children: [
       {
         id: 4.1,
         label: "IDLE",
         icon: "",
-        link: "/market-place/idle",
+        link: "/my-pets/idle",
       },
       {
         id: 4.2,
         label: "WORKING",
         icon: "",
-        link: "/market-place/working",
+        link: "/my-pets/working",
       },
     ],
+  },
+  {
+    id: 4,
+    label: "MARKET PLACE",
+    icon: "",
+    link: "/market-place",
   },
   { id: 5, label: "STAKE NFT", icon: "", link: "/stake-nft" },
   {

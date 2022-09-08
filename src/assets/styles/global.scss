@@ -28,11 +28,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-y: auto;
   overflow-x: hidden;
+  line-height: normal;
 }
 
 #__next {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
 
   position: relative;

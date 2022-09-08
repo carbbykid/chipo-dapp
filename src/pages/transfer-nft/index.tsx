@@ -1,3 +1,4 @@
+import TitleBar from "components/layout/TitleBar";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -9,7 +10,7 @@ const Index: NextPage = () => {
         <meta name="description" content="ChiPoPo" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Transfer NFT</div>
+      <TitleBar title="Transfer NFT" />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import "assets/styles/global.scss";
 import Sidebar from "components/layout/Sidebar";
-import ConnectBar from "components/layout/Connectbar";
+import ConnectBar from "components/layout/ConnectBar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
