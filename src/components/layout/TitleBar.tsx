@@ -1,9 +1,7 @@
-const TitleBar = ({ busd, auni }: { busd: number; auni: number }) => {
+const TitleBar = ({ title }: { title: string }) => {
   return (
-    <div className="flex justify-end gap-[40px] text-[20px]">
-      <button className="button min-w-[265px] text-right">{busd} BUSD</button>
-      <button className="button min-w-[265px] text-right">{auni} AUNI</button>
-      <button className="button min-w-[265px]">CONNECT WALLET</button>
+    <div className="">
+      <div className="text-[70px] mt-[35px] mb-[84px] ml-[5px]">{title}</div>
     </div>
   );
 };
