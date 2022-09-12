@@ -12,7 +12,15 @@
     }
 
     .button {
-        @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second duration-200 ease-in
+        @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second duration-200 ease-in disabled:opacity-25
+    }
+
+    .col-primary {
+       @apply border-b-[3px] border-aqua-pink border-r-[3px] w-1/2
+    }
+
+    .col-secondary {
+       @apply border-b-[3px] border-aqua-pink w-1/2
     }
 }
 

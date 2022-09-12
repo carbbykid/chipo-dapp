@@ -68,7 +68,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`aqua-sidebar h-screen border-[#d581ab] border-t-2 border-r-2 rounded-r-[25px] relative ease-in duration-300 ${
+      className={`aqua-sidebar border-[#d581ab] border-t-2 border-r-2 rounded-r-[25px] relative ease-in duration-300 ${
         toggleCollapse ? "w-[8%]" : "w-[345px]"
       } `}
       // onMouseEnter={handleOnMouse}

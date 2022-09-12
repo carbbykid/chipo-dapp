@@ -6,7 +6,7 @@ import ConnectBar from "components/layout/ConnectBar";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <div className="flex z-10 relative">
+      <div className="flex z-10 relative min-h-screen">
         <Sidebar />
         <div className="flex-1 p-4 border-1 border-dashed">
           <ConnectBar auni={1000} busd={500} />
