@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <div className="flex z-10 relative min-h-screen">
         <Sidebar />
-        <div className="flex-1 p-4 border-1 border-dashed">
+        <div className="flex flex-col flex-1 p-4 border-1 border-dashed">
           <ConnectBar auni={1000} busd={500} />
           <Component {...pageProps} />
         </div>
