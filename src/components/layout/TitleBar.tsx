@@ -1,7 +1,14 @@
-const TitleBar = ({ title }: { title: string }) => {
+const TitleBar = ({
+  title,
+  element,
+}: {
+  title: string;
+  element?: JSX.Element;
+}) => {
   return (
-    <div className="">
+    <div className="flex justify-between items-end">
       <div className="text-[70px] mt-[35px] mb-[40px] ml-[5px]">{title}</div>
+      {element}
     </div>
   );
 };
