@@ -22,6 +22,16 @@
     .col-secondary {
        @apply border-b-[3px] border-aqua-pink w-1/2
     }
+
+    .pagination-item {
+        @apply m-2 text-[20px] flex items-center justify-center;
+        button {
+          @apply rounded-full w-[40px] h-[40px] p-2 cursor-pointer hover:text-aqua-pink-second flex items-center justify-center;
+          &.active {
+            @apply bg-aqua-pink text-white;
+          }
+        }
+    }
 }
 
 .aqua-sidebar {
@@ -36,3 +46,4 @@
         border-radius: 25px;
     }
 }
+
