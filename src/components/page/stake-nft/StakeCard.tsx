@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const StakeCard = ({ data }: { data: any }): JSX.Element => {
   return (
     <div className="w-[475px] border-[5px] rounded-[25px] border-aqua-pink p-[20px] shrink-0 relative hover:bg-[#000033] ease-in duration-200">
@@ -10,9 +12,11 @@ const StakeCard = ({ data }: { data: any }): JSX.Element => {
           src={data.imgURL}
           alt="AQUA-DApp"
         />
-        <button className="button border-white border-[3px] rounded-[15px] text-[25px] px-[20px]">
+        <Link href={"my-pets/idle"}>
+        <a className="button border-white border-[3px] rounded-[15px] text-[25px] px-[20px]">
           Stake
-        </button>
+        </a>
+        </Link>
       </div>
 
       <div>

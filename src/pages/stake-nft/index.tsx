@@ -3,14 +3,13 @@ import StakeCard from "components/page/stake-nft/StakeCard";
 import type { NextPage } from "next";
 import Head from "next/head";
 
+
+
 const Index: NextPage = () => {
+  
   return (
     <>
-      <Head>
-        <title>ChiPoPo</title>
-        <meta name="description" content="ChiPoPo" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+
       <TitleBar title="STAKE NFT" />
       <div className="flex flex-wrap gap-[45px] justify-center">
         {dataFake.map((data, idx) => (

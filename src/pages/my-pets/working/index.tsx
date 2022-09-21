@@ -38,11 +38,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>ChiPoPo</title>
-        <meta name="description" content="ChiPoPo" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  
       <TitleBar title="MY PETS > WORKING" />
       <div className="mb-[30px]">
         <TableCustom data={listItems} titleRow={titleRow} />

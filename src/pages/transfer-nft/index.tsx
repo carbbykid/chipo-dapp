@@ -15,11 +15,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>ChiPoPo</title>
-        <meta name="description" content="ChiPoPo" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  
       <TitleBar title="Transfer NFT" />
       <div className="flex justify-center items-center flex-1">
         <div className="bg-[#130945] w-[935px] border-[3px] py-[98px] px-[175px] border-aqua-pink rounded-[25px] bg-opacity-50 mx-auto my-0">

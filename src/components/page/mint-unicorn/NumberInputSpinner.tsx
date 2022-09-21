@@ -1,18 +1,21 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
 const NumberInputSpinner = ({
   min,
   max,
+  value,
+  setValue
 }: {
   min: number;
   max: number;
+  value: number;
+  setValue : SetStateAction<any>
 }): JSX.Element => {
-  const [value, setValue] = useState(1);
 
   const handleClickButton = (type: string) => () => {
     if (type === "increase") {
-      setValue((value) => ++value % (max + 1));
-    } else setValue((value) => (--value + max + 1) % (max + 1));
+      setValue((value : number) => ++value % (max + 1));
+    } else setValue((value : number) => (--value + max + 1) % (max + 1));
   };
 
   return (
