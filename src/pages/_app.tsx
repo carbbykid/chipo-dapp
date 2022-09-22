@@ -77,7 +77,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Aqua Unicorn</title>
         <meta name="description" content="Aqua Unicorn" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.ico" />
       </Head>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
