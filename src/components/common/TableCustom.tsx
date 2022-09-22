@@ -26,13 +26,19 @@ const TableCustom = ({ data, titleRow }: TableCustom): JSX.Element => {
                 className={`pt-[32px] min-w-[110px] whitespace-pre-line`}
                 key={idx}
               >
-                {typeof col.field === "string" ? (
-                  /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(row[col.field]) ? (
-                    <img
+                {typeof col.field === "string" || typeof col.field === "object" ? (
+                  idx===0 ? (
+                    <div className="collections_preview__listItemImageBox">
+                    {row.images.map((img:any,index:number) => (
+                      <img
+                      key={`image_${index}`}
                       className="w-[131px] mx-auto my-0 border-[3px] rounded-[15px] border-aqua-pink"
-                      src={row[col.field]}
+                      src={img.path}
                       alt="aqua-nft"
                     />
+                    ))}
+                    
+                    </div>
                   ) : (
                     row[col.field]
                   )
