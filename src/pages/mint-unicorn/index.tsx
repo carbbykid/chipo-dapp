@@ -12,15 +12,16 @@ import {
   useSigner,
   useContract
 } from 'wagmi';
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ABI_AUNI from "../../../contracts/tAquaUnicorn";
 import ABI_NFT from "../../../contracts/tAquaUnicornNFT";
 import { BigNumber } from "ethers";
 import Image from 'next/image';
 
-
-const AUNIAddress ="0x1e5E4AdfE4cfcc68b8b54445280AFfe37c83607A";
-const NFTAddress = "0xEBFD82e5f296e0ba6D0464cEA1c70e9DEe8DE808";
+import contractAddress from "../../constants/contractAddress";
+const AUNIAddress =contractAddress.AUNIAddress;
+const NFTAddress = contractAddress.NFTAddress;
+const StakingAddress= contractAddress.StakingAddress;
 
 
 
@@ -30,6 +31,15 @@ const Index: NextPage = () => {
   useEffect(() => setMounted(true), []);
   const { isConnected,address } = useAccount();
   const [amount, setAmount] = useState(1);
+
+  const handleChangeAmount = useCallback((value:any)=>{
+    setAmount(value);
+  },[setAmount]);
+
+
+
+  console.log(amount);
+
 
   const {
     data: price
@@ -53,13 +63,15 @@ const Index: NextPage = () => {
 
 
   const {
-    config:configNFT
+    config:configNFT,
+    error:mintErr
   } = usePrepareContractWrite({
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
     functionName: 'mint',
     args:[amount]
   });
+  console.log("mintErr",mintErr);
   const { data:dataNFT, isLoading: isNFTLoading,isSuccess:isNFTSuccess, write  :mintNFT} = useContractWrite(configNFT);
 
 
@@ -114,6 +126,8 @@ const Index: NextPage = () => {
     hash: dataToken?.hash,
   });
 
+
+
   const isTokenMinted = txSuccessToken;
 
   const {
@@ -130,9 +144,6 @@ const Index: NextPage = () => {
     return BigNumber.from(allowance._hex).gte(total);
   },[total, allowance,txSuccessArroval]);
 
-  // console.log("BigNumber.from(allowance._hex)",BigNumber.from(allowance?._hex));
-  console.log("total",total);
-  console.log("allowance",allowance);
   return (
     <>
 
@@ -211,7 +222,7 @@ const Index: NextPage = () => {
           <p className="text-[25px] mb-[31px]">
             How many Unicorn eggs do you want to buy?
           </p>
-          <NumberInputSpinner min={1} max={10} value={amount} setValue={setAmount} />
+          <NumberInputSpinner min={1} max={10} value={amount} handleChangeAmount={handleChangeAmount} />
           <p className="text-[25px] mb-[35px] text-center">
             MAXIMUM QUANTITY 10
           </p>

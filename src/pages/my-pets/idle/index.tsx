@@ -22,15 +22,23 @@ import Image from 'next/image';
 import PetCard from "components/page/my-pets-ide/PetCard";
 
 
-const AUNIAddress ="0x1e5E4AdfE4cfcc68b8b54445280AFfe37c83607A";
-const NFTAddress = "0xEBFD82e5f296e0ba6D0464cEA1c70e9DEe8DE808";
+import contractAddress from "../../../constants/contractAddress";
+const AUNIAddress =contractAddress.AUNIAddress;
+const NFTAddress = contractAddress.NFTAddress;
+const StakingAddress= contractAddress.StakingAddress;
 
 const Index: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const { isConnected,address } = useAccount();
+  const [reload, setReload] = useState(1);
+
   const [amount, setAmount] = useState(1);
   const [tokenIds, setTokenIds] = useState<Array<number>>([]);
+
+  const handleSetApproved = useCallback((value:any)=>{
+    setApproved(value);
+  },[setAmount]);
 
   const {data: singer} = useSigner();
   const contract = useContract({
@@ -48,6 +56,30 @@ const Index: NextPage = () => {
     functionName: 'balanceOf',
     args:[address],
   });
+
+  const {
+    data: isApprored,
+    isSuccess,
+  } = useContractRead({
+    cacheOnBlock:true,
+    addressOrName: NFTAddress,
+    contractInterface: ABI_NFT.abi,
+    functionName: 'isApprovedForAll',
+    args:[address,StakingAddress]
+  });
+  
+  const [approved, setApproved] = useState(false);
+
+  useEffect(()=>{
+    if(isApprored){
+      setApproved(true);
+    } else {
+      setApproved(false);
+    }
+  },[isApprored]);
+
+
+ 
 
   const fetchToken = useCallback(async()=>{
     try{
@@ -89,7 +121,7 @@ const Index: NextPage = () => {
       <TitleBar title="MY PETS > IDE" />
       <div className="flex flex-wrap gap-[55px] justify-center">
         {listNFT.map((data, idx) => (
-          <PetCard key={idx} data={data} />
+          <PetCard approved={approved} handleSetAproved={handleSetApproved} key={idx} data={data} />
         ))}
       </div>
     </>

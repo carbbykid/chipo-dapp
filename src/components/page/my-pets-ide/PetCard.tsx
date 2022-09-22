@@ -19,12 +19,12 @@ import ABI_NFT from "../../../../contracts/tAquaUnicornNFT";
 import { BigNumber } from "ethers";
 import Image from 'next/image';
 
+import contractAddress from "../../../constants/contractAddress";
+const AUNIAddress =contractAddress.AUNIAddress;
+const NFTAddress = contractAddress.NFTAddress;
+const StakingAddress= contractAddress.StakingAddress;
 
-const AUNIAddress ="0x1e5E4AdfE4cfcc68b8b54445280AFfe37c83607A";
-const NFTAddress = "0xEBFD82e5f296e0ba6D0464cEA1c70e9DEe8DE808";
-const StakingAddress= "0xe6aeB3CB51f93C7b997Dd0EEFa59062977fc5Ad2";
-
-const PetCard = ({ data }: { data: any }): JSX.Element => {
+const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetAproved:any,data: any }): JSX.Element => {
   const { isConnected,address } = useAccount();
   const [tokenId , setTokenId] = useState(data?.id);
   const {
@@ -56,10 +56,13 @@ const PetCard = ({ data }: { data: any }): JSX.Element => {
     hash: dataApproval?.hash,
   });
 
+  const approvalSuccess = txSuccessArroval;
+
+
 
   const {
     config : stakeConfig,
-    error 
+ 
   } = usePrepareContractWrite({
     addressOrName: StakingAddress,
     contractInterface: Staking_NFT.abi,
@@ -73,27 +76,30 @@ const PetCard = ({ data }: { data: any }): JSX.Element => {
   const {
    
     isSuccess: txSuccessStake,
-    // error: txErrorToken,
   } = useWaitForTransaction({
     hash: dataStake?.hash,
   });
 
   const stakeSuccess = txSuccessStake;
 
+  if(!approved && approvalSuccess) {
+    handleSetAproved(true);
+  }
 
 
   return (
-    <div className="collections_preview__listItem w-[320px] border-[5px] rounded-[25px] border-aqua-pink p-[20px] hover:bg-[#000033] ease-in duration-200">
+    <>
+    {!stakeSuccess && (
+      <div className="collections_preview__listItem w-[320px] border-[5px] rounded-[25px] border-aqua-pink p-[20px] hover:bg-[#000033] ease-in duration-200">
     <div className="collections_preview__listItemImageBox">
      {data.images.map((img:any, idx :number) => (
-       <>
       <img
         key={`image_${idx}`}
         className="w-[290px] h-[290px] border-[1px] border-aqua-pink rounded-[25px] top-[0] "
         src={img.path}
         alt="AQUA-DApp"
       />
-      </>
+
      ))}
      </div>
       
@@ -111,27 +117,29 @@ const PetCard = ({ data }: { data: any }): JSX.Element => {
       </div>
 
       <div className="flex justify-between">
-        {(isApprored || txSuccessArroval) && (
+        {approved  && (
         <button 
         disabled={!stake || isLoading || isSuccess}
         data-mint-loading={isLoading}
         data-mint-started={isSuccess}
         onClick={() => {
-          setTokenId(data.id);
           stake?.();
         }} 
         className="button min-w-[124px] border-white border-[3px] rounded-[15px] text-[25px] px-[20px]">
           {isLoading && 'Waiting for approval'}
-          {isSuccess && 'Aproval...'}
+          {(isSuccess && !stakeSuccess) && 'Staking...'}
+          {stakeSuccess && 'Staked'}
           {!isLoading && !isSuccess && 'Stake'}
         </button>
         )}
-        {!isApprored && (
+        {!approved  && (
         <button
         disabled={!approval || isApprovalLoading || isApprovalSuccess || stakeSuccess}
         data-mint-loading={isApprovalLoading}
         data-mint-started={isApprovalSuccess}
-        onClick={() => approval?.()} 
+        onClick={() =>
+          approval?.()
+        } 
         className="button min-w-[124px] border-white border-[3px] rounded-[15px] text-[25px] px-[20px]"
       >
        {isApprovalLoading && 'Waiting for approval'}
@@ -147,6 +155,8 @@ const PetCard = ({ data }: { data: any }): JSX.Element => {
         </button>
       </div>
     </div>
+    )}
+    </>
   );
 };
 

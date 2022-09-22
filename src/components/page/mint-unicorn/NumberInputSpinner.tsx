@@ -4,18 +4,18 @@ const NumberInputSpinner = ({
   min,
   max,
   value,
-  setValue
+  handleChangeAmount
 }: {
   min: number;
   max: number;
   value: number;
-  setValue : SetStateAction<any>
+  handleChangeAmount : SetStateAction<any>
 }): JSX.Element => {
 
   const handleClickButton = (type: string) => () => {
     if (type === "increase") {
-      setValue((value : number) => ++value % (max + 1));
-    } else setValue((value : number) => (--value + max + 1) % (max + 1));
+      handleChangeAmount((value : number) => ++value % (max + 1));
+    } else handleChangeAmount((value : number) => (--value + max + 1) % (max + 1));
   };
 
   return (
