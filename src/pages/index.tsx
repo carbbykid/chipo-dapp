@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-        <Head>
+      <Head>
         <title>Aqua Unicorn</title>
         <meta name="description" content="Aqua Unicorn" />
         <link rel="icon" href="/favicon.ico" />

@@ -2,11 +2,9 @@ import TitleBar from "components/layout/TitleBar";
 import MainInfo from "components/page/dashboard/MainInfo";
 import type { NextPage } from "next";
 
-
 const Index: NextPage = () => {
   return (
     <>
-    
       <TitleBar title="Dashboard" />
       <div className="flex gap-[90px] flex-wrap justify-center">
         <MainInfo title="AUNI BALANCE" value={"0.00"} />
