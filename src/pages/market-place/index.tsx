@@ -38,7 +38,6 @@ const Index: NextPage = () => {
 
   return (
     <>
-   
       <TitleBar
         title="MARKET PLACE"
         element={

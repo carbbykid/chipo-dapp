@@ -9,17 +9,17 @@ import {
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
-
   useWaitForTransaction,
   useSigner,
-  useContract
-} from 'wagmi';
+  useContract,
+} from "wagmi";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ABI_AUNI from "../../../../contracts/tAquaUnicorn";
 import ABI_NFT from "../../../../contracts/tAquaUnicornNFT";
 import { BigNumber } from "ethers";
-import Image from 'next/image';
+import Image from "next/image";
 import PetCard from "components/page/my-pets-ide/PetCard";
+
 
 
 import contractAddress from "../../../constants/contractAddress";
@@ -27,97 +27,75 @@ const AUNIAddress =contractAddress.AUNIAddress;
 const NFTAddress = contractAddress.NFTAddress;
 const StakingAddress= contractAddress.StakingAddress;
 
+
 const Index: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const { isConnected,address } = useAccount();
-  const [reload, setReload] = useState(1);
+  const [approved, setApproved] = useState(false);
 
   const [amount, setAmount] = useState(1);
   const [tokenIds, setTokenIds] = useState<Array<number>>([]);
 
   const handleSetApproved = useCallback((value:any)=>{
     setApproved(value);
-  },[setAmount]);
+  },[setApproved]);
 
   const {data: singer} = useSigner();
+
   const contract = useContract({
-    addressOrName:NFTAddress,
-    contractInterface:ABI_NFT.abi,
-    signerOrProvider:singer
-  });
-
-  const {
-    data: balance
-  } = useContractRead({
-    cacheOnBlock:true,
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
-    functionName: 'balanceOf',
-    args:[address],
+    signerOrProvider: singer,
   });
 
-  const {
-    data: isApprored,
-    isSuccess,
-  } = useContractRead({
-    cacheOnBlock:true,
+
+  const { data: balance } = useContractRead({
+    cacheOnBlock: true,
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
-    functionName: 'isApprovedForAll',
-    args:[address,StakingAddress]
+    functionName: "balanceOf",
+    args: [address],
   });
-  
-  const [approved, setApproved] = useState(false);
 
-  useEffect(()=>{
-    if(isApprored){
-      setApproved(true);
-    } else {
-      setApproved(false);
-    }
-  },[isApprored]);
-
-
- 
-
-  const fetchToken = useCallback(async()=>{
-    try{
-      if(!contract || !address || !balance) {return null;} else if(isConnected){
-          const ids = await Promise.all(new Array(BigNumber.from(balance?._hex).toNumber()).fill(null).map((_, i) => i).map(async(id)=> {
-          const tokenId = await contract?.tokenOfOwnerByIndex(address,id);
-          return BigNumber.from(tokenId._hex).toNumber();
-        }
-        ));
+  const fetchToken = useCallback(async () => {
+    try {
+      if (!contract || !address || !balance) {
+        return null;
+      } else if (isConnected) {
+        const ids = await Promise.all(
+          new Array(BigNumber.from(balance?._hex).toNumber())
+            .fill(null)
+            .map((_, i) => i)
+            .map(async (id) => {
+              const tokenId = await contract?.tokenOfOwnerByIndex(address, id);
+              return BigNumber.from(tokenId._hex).toNumber();
+            }),
+        );
         setTokenIds(ids);
       }
-    }catch(e){
+    } catch (e) {
       // console.log(e);
     }
-    
-  },[address,contract,balance,isConnected]);
+  }, [address, contract, balance, isConnected]);
 
-
-  useEffect(()=>{
-    if(!balance) return;
+  useEffect(() => {
+    if (!balance) return;
     fetchToken();
-  },[address,contract,balance,fetchToken]);
+  }, [address, contract, balance, fetchToken]);
 
-
-  const listNFT  = useMemo(()=>{
-    return tokenIds.map(index =>{
+  const listNFT = useMemo(() => {
+    return tokenIds.map((index) => {
       return {
-        images:getLayersByTokenIndex(layers,index),
-        id:index,
-        rarity:"COMMON",
+        images: getLayersByTokenIndex(layers, index),
+        id: index,
+        rarity: "COMMON",
       };
     });
-  },[tokenIds]);
-
+  }, [tokenIds]);
 
   return (
     <>
-     
       <TitleBar title="MY PETS > IDE" />
       <div className="flex flex-wrap gap-[55px] justify-center">
         {listNFT.map((data, idx) => (

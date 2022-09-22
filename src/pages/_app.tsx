@@ -1,14 +1,13 @@
 import type { AppProps } from "next/app";
 import "assets/styles/global.scss";
 
-
-import { chain, Chain, configureChains, createClient } from 'wagmi';
-import { publicProvider } from '@wagmi/core/providers/public';
+import { chain, Chain, configureChains, createClient } from "wagmi";
+import { publicProvider } from "@wagmi/core/providers/public";
 import Sidebar from "components/layout/Sidebar";
 import ConnectBar from "components/layout/ConnectBar";
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { infuraProvider } from 'wagmi/providers/infura';
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { infuraProvider } from "wagmi/providers/infura";
 import "@rainbow-me/rainbowkit/styles.css";
 
 import {
@@ -16,41 +15,48 @@ import {
   getDefaultWallets,
   connectorsForWallets,
   wallet,
-} from '@rainbow-me/rainbowkit';
+} from "@rainbow-me/rainbowkit";
 import { WagmiConfig } from "wagmi";
+import Head from "next/head";
 // Get Your projectId at https://cloud.walletconnect.com
-const WC_PROJECT_ID = 'a5894fa021b22d287d96ddc0a910f1a6';
+const WC_PROJECT_ID = "a5894fa021b22d287d96ddc0a910f1a6";
 
 // Configure chains and providers (rpc's)
-const bscchain : Chain =  {
-  id :97,
-  name:"BSC testnet",
-  network:"Smart Chain - Testnet",
-  nativeCurrency:{name:"BNB",symbol:"BNB",decimals:18},
-  rpcUrls:{
-    default:"https://data-seed-prebsc-1-s1.binance.org:8545/",
+const bscchain: Chain = {
+  id: 97,
+  name: "BSC testnet",
+  network: "Smart Chain - Testnet",
+  nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+  rpcUrls: {
+    default: "https://data-seed-prebsc-1-s1.binance.org:8545/",
   },
-  testnet:true,
-  blockExplorers:{default: { name: 'bscscan', url: 'https://testnet.bscscan.com/' }},
+  testnet: true,
+  blockExplorers: {
+    default: { name: "bscscan", url: "https://testnet.bscscan.com/" },
+  },
 };
 
-const { chains, provider } = configureChains([bscchain], [
-  jsonRpcProvider({
-  rpc: (chain) => {
-    if (chain.id !== bscchain.id) return null;
-    return { http: chain.rpcUrls.default };
-  },
-}),]);
+const { chains, provider } = configureChains(
+  [bscchain],
+  [
+    jsonRpcProvider({
+      rpc: (chain) => {
+        if (chain.id !== bscchain.id) return null;
+        return { http: chain.rpcUrls.default };
+      },
+    }),
+  ],
+);
 
 const { wallets } = getDefaultWallets({
-  appName: 'RainbowKit demo',
+  appName: "RainbowKit demo",
   chains,
 });
 
 const connectors = connectorsForWallets([
   ...wallets,
   {
-    groupName: 'Other',
+    groupName: "Other",
     wallets: [
       wallet.argent({ chains }),
       wallet.trust({ chains }),
@@ -59,37 +65,33 @@ const connectors = connectorsForWallets([
   },
 ]);
 
-
-
-
-
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
-  provider
+  provider,
 });
-
-
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-    <WagmiConfig client={wagmiClient}>
-    <RainbowKitProvider chains={chains}>
-      <div className="flex z-10 relative min-h-screen">
-        <Sidebar />
-        <div className="flex flex-col flex-1 p-4 border-1 border-dashed">
-          <ConnectBar />
-          <Component {...pageProps} />
-        </div>
-      </div>
-      </RainbowKitProvider>
+      <Head>
+        <title>Aqua Unicorn</title>
+        <meta name="description" content="Aqua Unicorn" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <div className="flex z-10 relative min-h-screen">
+            <Sidebar />
+            <div className="flex flex-col flex-1 p-4 border-1 border-dashed">
+              <ConnectBar />
+              <Component {...pageProps} />
+            </div>
+          </div>
+        </RainbowKitProvider>
       </WagmiConfig>
-
     </>
   );
 }
 
 export default MyApp;
-
-

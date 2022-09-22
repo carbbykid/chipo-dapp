@@ -14,6 +14,7 @@ const NFTAddress = contractAddress.NFTAddress;
 const StakingAddress= contractAddress.StakingAddress;
 import {Decimal} from "decimal.js";
 
+
 const Index: NextPage = () => {
   const { isConnected,address } = useAccount();
   const { data: balanceBNB, isSuccess } = useBalance({
