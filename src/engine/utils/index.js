@@ -33,11 +33,11 @@ const seededRandom = ({ rng = null, seed = "apples" } = {}) => {
 
   const rndInt = (lo, hi) =>{
     return Math.floor(rnd(lo, hi, 2));
-  } 
+  } ;
 
   const shuffle = (a) => {
     for (let i = a.length - 1; i > 0; i--) {
-      const j = rndInt(i+1)
+      const j = rndInt(i+1);
       const temp = a[i];
       a[i] = a[j];
       a[j] = temp;
