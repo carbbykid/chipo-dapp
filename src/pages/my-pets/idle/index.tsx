@@ -58,6 +58,22 @@ const Index: NextPage = () => {
     args: [address],
   });
 
+  const {
+    data: isApprored
+  } = useContractRead({
+    cacheOnBlock:true,
+    addressOrName: NFTAddress,
+    contractInterface: ABI_NFT.abi,
+    functionName: 'isApprovedForAll',
+    args:[address,StakingAddress]
+  });
+
+  useEffect(()=>{
+    if(isApprored){
+      setApproved(true);
+    }
+  },[isApprored]);
+
   const fetchToken = useCallback(async () => {
     try {
       if (!contract || !address || !balance) {

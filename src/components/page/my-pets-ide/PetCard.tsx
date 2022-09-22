@@ -38,15 +38,7 @@ const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetA
   const { data :dataApproval, isLoading : isApprovalLoading, isSuccess : isApprovalSuccess, write  :approval} = useContractWrite(approvalConfig);
 
   
-  const {
-    data: isApprored
-  } = useContractRead({
-    cacheOnBlock:true,
-    addressOrName: NFTAddress,
-    contractInterface: ABI_NFT.abi,
-    functionName: 'isApprovedForAll',
-    args:[address,StakingAddress]
-  });
+ 
 
   const {
    
