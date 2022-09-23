@@ -49,6 +49,7 @@ const Index: NextPage = () => {
       if (!stakingContract || !address) return;
       const ids = await stakingContract?.getStakedTokens(address);
       if (ids) setTokenIds([...ids]);
+      // fetch();
     } catch (e) {
       //
     }
@@ -58,10 +59,12 @@ const Index: NextPage = () => {
   //   getStakedIds();
   // }, [getStakedIds]);
 
-  // useEffect(() => {
-  //   getStakedIds();
-  // }, [getStakedIds]);
+  useEffect(() => {
+    getStakedIds();
+  }, [getStakedIds]);
 
+  // getStakedIds();
+  
   const getReward = useCallback(
     async (id: number) => {
       try {
@@ -74,7 +77,7 @@ const Index: NextPage = () => {
         console.log();
       }
     },
-    [stakingContract, address],
+    [address, stakingContract],
   );
 
   const fetch = useCallback(async () => {
@@ -90,12 +93,12 @@ const Index: NextPage = () => {
         };
       }),
     );
-    setStakingList(list);
-  }, [tokenIds, getReward]);
+    setStakingList([...list]);
+  }, [getReward, tokenIds]);
 
   useEffect(() => {
-    fetch();
-  }, [tokenIds, fetch]);
+  fetch();
+  }, [fetch]);
 
   const router = useRouter();
   const page = useMemo(

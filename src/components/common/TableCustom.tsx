@@ -48,7 +48,7 @@ const TableCustom = ({
                     row[col.field]
                   )
                 ) : (
-                  col.field(row.id, row)
+                  col.field(row.id, row,getStakedIds)
                 )}
               </td>
             ))}

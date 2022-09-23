@@ -54,11 +54,12 @@ const Functions = ({id, data, handleReload}: {id:string | undefined, data:any,ha
         hash: dataClaim?.hash,
       });
     
-      const claimSuccess =  txSuccessClaim ;
+    const claimSuccess =  txSuccessClaim ;
 
-      const unstakeSuccess = txSuccessUnStake;
-
-      if(unstakeSuccess) handleReload();
+    const unstakeSuccess = txSuccessUnStake;
+    if(unstakeSuccess) {
+        handleReload();
+    }
 
 
     return (
