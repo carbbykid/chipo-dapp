@@ -27,7 +27,7 @@ const Index: NextPage = () => {
   const {
     data: balance
   } = useContractRead({
-    cacheOnBlock:true,
+    watch:true,
     addressOrName: AUNIAddress,
     contractInterface: ABI_AUNI.abi,
     functionName: 'balanceOf',
@@ -37,7 +37,7 @@ const Index: NextPage = () => {
   const {
     data: balanceNFT
   } = useContractRead({
-    cacheOnBlock:true,
+    watch:true,
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
     functionName: 'balanceOf',
@@ -47,19 +47,19 @@ const Index: NextPage = () => {
   const {
     data: rewards
   } = useContractRead({
-    cacheOnBlock:true,
+    watch:true,
     addressOrName: StakingAddress,
     contractInterface: STAKING_NFT.abi,
     functionName: 'getAllRewardedToken',
     args:[address]
   });
 
-  console.log("rewards",new Decimal(BigNumber.from(rewards?._hex || 0).toString()).div(Math.pow(10, 18)));
+  // console.log("rewards",new Decimal(BigNumber.from(rewards?._hex || 0).toString()).div(Math.pow(10, 18)));
 
   const {
     data: totalSupply
   } = useContractRead({
-    cacheOnBlock:true,
+    watch:true,
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
     functionName: 'totalSupply',

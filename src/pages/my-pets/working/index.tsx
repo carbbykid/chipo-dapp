@@ -24,7 +24,6 @@ import {
   useSigner,
 } from "wagmi";
 import { BigNumber } from "ethers";
-import Functions from "components/page/my-pets-working/Functions";
 const AUNIAddress = contractAddress.AUNIAddress;
 const NFTAddress = contractAddress.NFTAddress;
 const StakingAddress = contractAddress.StakingAddress;
@@ -89,7 +88,6 @@ const Index: NextPage = () => {
           id: BigNumber.from(id._hex).toNumber(),
           rank: "COMMON",
           land: "Pellucidar",
-          reward: await getReward(id),
         };
       }),
     );
@@ -147,9 +145,6 @@ const titleRow = [
   { title: "LAND", field: "land" },
   { title: "REWARD(BUSD)", field: "reward" },
   {
-    title: "FUNCTION",
-    field: (id?: string, data?: any, handleReload?: any) => (
-      <Functions id={id} data={data} handleReload={handleReload} />
-    ),
+    title: "FUNCTION", field: "functions" 
   },
 ];

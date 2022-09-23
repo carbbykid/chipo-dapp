@@ -38,7 +38,7 @@ const Index: NextPage = () => {
 
 
 
-  console.log(amount);
+  // console.log(amount);
 
 
   const {
@@ -71,7 +71,7 @@ const Index: NextPage = () => {
     functionName: 'mint',
     args:[amount]
   });
-  console.log("mintErr",mintErr);
+  // console.log("mintErr",mintErr);
   const { data:dataNFT, isLoading: isNFTLoading,isSuccess:isNFTSuccess, write  :mintNFT} = useContractWrite(configNFT);
 
 
