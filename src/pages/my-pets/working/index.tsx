@@ -11,92 +11,91 @@ import ABI_NFT from "../../../../contracts/tAquaUnicornNFT";
 
 import getLayersByTokenIndex from "../../../engine";
 import layers from "../../../../layers/layer.json";
-import {Decimal} from "decimal.js";
+import { Decimal } from "decimal.js";
 const recordsPerPage = 4;
 
-
-
 import contractAddress from "../../../constants/contractAddress";
-import { useAccount, useContract, useContractRead, usePrepareContractWrite, useProvider, useSigner } from "wagmi";
+import {
+  useAccount,
+  useContract,
+  useContractRead,
+  usePrepareContractWrite,
+  useProvider,
+  useSigner,
+} from "wagmi";
 import { BigNumber } from "ethers";
 import Functions from "components/page/my-pets-working/Functions";
-const AUNIAddress =contractAddress.AUNIAddress;
+const AUNIAddress = contractAddress.AUNIAddress;
 const NFTAddress = contractAddress.NFTAddress;
-const StakingAddress= contractAddress.StakingAddress;
-
+const StakingAddress = contractAddress.StakingAddress;
 
 const Index: NextPage = () => {
-  
   // const [listItems, setListItems] = useState<any>([]);
   const [stakingList, setStakingList] = useState<any>([]);
   const [tokenIds, setTokenIds] = useState<any>([]);
+  const [isUnstakeSuccess, setIsUnstakeSuccess] = useState();
 
-
-
-
-  const { isConnected,address } = useAccount();
+  const { isConnected, address } = useAccount();
   const provider = useProvider();
-  const { data:signer } = useSigner();
+  const { data: signer } = useSigner();
   const stakingContract = useContract({
-    addressOrName:StakingAddress,
-    contractInterface:Staking_NFT.abi,
-    signerOrProvider:signer || provider
+    addressOrName: StakingAddress,
+    contractInterface: Staking_NFT.abi,
+    signerOrProvider: signer || provider,
   });
 
-  const getStakedIds = useCallback(async ()=>{
-    try{
-      if(!stakingContract || !address) return;
+  const getStakedIds = useCallback(async () => {
+    try {
+      if (!stakingContract || !address) return;
       const ids = await stakingContract?.getStakedTokens(address);
-      if(ids) setTokenIds([...ids]);
-    }catch(e){
+      if (ids) setTokenIds([...ids]);
+    } catch (e) {
       //
     }
-  },[stakingContract,address]);
+  }, [stakingContract, address]);
 
-  const reLoadIds = useCallback(()=>{
-    getStakedIds();
-  },[getStakedIds]);
+  // const reLoadIds = useCallback(() => {
+  //   getStakedIds();
+  // }, [getStakedIds]);
 
+  // useEffect(() => {
+  //   getStakedIds();
+  // }, [getStakedIds]);
 
+  const getReward = useCallback(
+    async (id: number) => {
+      try {
+        if (!stakingContract || !address) return 0;
+        const reward = await stakingContract?.getRewardedToken(address, id);
+        return new Decimal(BigNumber.from(reward._hex).toString())
+          .div(new Decimal(10).pow(18))
+          .toFixed(3);
+      } catch (e) {
+        console.log();
+      }
+    },
+    [stakingContract, address],
+  );
 
-
-  useEffect(()=>{
-    getStakedIds();
-  },[getStakedIds]);
-
-
-  const getReward = useCallback(async (id :number)=>{
-    try{
-      if(!stakingContract || !address) return 0;
-      const reward = await stakingContract?.getRewardedToken(address,id);
-      return new Decimal(BigNumber.from(reward._hex).toString()).div(new Decimal(10).pow(18)).toFixed(3);
-    }catch(e){
-      console.log();
-    };
-
-  },[stakingContract,address]);
-
-
-   
-  const fetch = useCallback(async ()=>{
-    if(!tokenIds || !tokenIds.length) return;
-    const list = await Promise.all(tokenIds.map(async (id : any) => {
-      return {
-        images:getLayersByTokenIndex(layers,id),
-        id : BigNumber.from(id._hex).toNumber(),
-        rank:"COMMON",
-        land:"Pellucidar",
-        reward: await getReward(id)
-      };
-    })
+  const fetch = useCallback(async () => {
+    if (!tokenIds || !tokenIds.length) return;
+    const list = await Promise.all(
+      tokenIds.map(async (id: any) => {
+        return {
+          images: getLayersByTokenIndex(layers, id),
+          id: BigNumber.from(id._hex).toNumber(),
+          rank: "COMMON",
+          land: "Pellucidar",
+          reward: await getReward(id),
+        };
+      }),
     );
     setStakingList(list);
-  },[tokenIds,getReward]);
+  }, [tokenIds, getReward]);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch();
-  },[tokenIds,fetch]);
+  }, [tokenIds, fetch]);
 
   const router = useRouter();
   const page = useMemo(
@@ -105,10 +104,6 @@ const Index: NextPage = () => {
   );
   const totalPages = Math.ceil(stakingList.length / recordsPerPage);
 
-
-
-
-
   const listItems = useMemo(() => {
     const offset = (page - 1) * recordsPerPage;
     if (offset + recordsPerPage > stakingList.length) {
@@ -116,15 +111,17 @@ const Index: NextPage = () => {
     } else {
       return stakingList.slice(offset, offset + recordsPerPage);
     }
-  }, [page,stakingList]);
-
+  }, [page, stakingList]);
 
   return (
     <>
-  
       <TitleBar title="MY PETS > WORKING" />
       <div className="mb-[30px]">
-        <TableCustom data={listItems} titleRow={titleRow}/>
+        <TableCustom
+          data={listItems}
+          titleRow={titleRow}
+          getStakedIds={getStakedIds}
+        />
       </div>
 
       {listItems.length > 0 && (
@@ -148,6 +145,8 @@ const titleRow = [
   { title: "REWARD(BUSD)", field: "reward" },
   {
     title: "FUNCTION",
-    field: (id?: string, data?: any , handleReload?:any) => <Functions id={id} data  ={data} handleReload={handleReload} />
+    field: (id?: string, data?: any, handleReload?: any) => (
+      <Functions id={id} data={data} handleReload={handleReload} />
+    ),
   },
 ];
