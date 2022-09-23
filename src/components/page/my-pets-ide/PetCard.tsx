@@ -137,7 +137,7 @@ const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetA
        {isApprovalLoading && 'Waiting for approval'}
        {isApprovalSuccess && 'Aproval...'}
        {stakeSuccess  && 'Staked'}
-       {!isApprovalLoading && !isApprovalSuccess && 'Appproval'}
+       {!isApprovalLoading && !isApprovalSuccess && 'Approve'}
       </button>
         )}
         
