@@ -78,7 +78,7 @@ const Index: NextPage = () => {
            <MainInfo title="EARN REWARD BUSD" value={new Decimal(BigNumber.from(rewards?._hex || 0).toString()).div(Math.pow(10, 18)).toString().substring(0,5)} />
            <MainInfo title="AUNI PRICE" value={"$ 0.2"} />
            <MainInfo title="NFT HOLDING" value={BigNumber.from(balanceNFT?._hex|| 0).toString()} />
-           <MainInfo title="TOLAL NFTS MINTED" value={BigNumber.from(totalSupply?._hex|| 0).toString()} />
+           <MainInfo title="TOTAL NFTS MINTED" value={BigNumber.from(totalSupply?._hex|| 0).toString()} />
            <MainInfo title="WALLET BALANCE" value={balanceBNB?.formatted.slice(0,5) + " BNB"} />
          </div>
          </>
