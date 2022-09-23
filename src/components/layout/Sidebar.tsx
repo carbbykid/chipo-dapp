@@ -40,7 +40,7 @@ const Sidebar = () => {
     [router.pathname],
   );
 
-  console.log(activeMenu);
+  // console.log(activeMenu);
 
   const handleOnMouse = () => {
     setIsCollapse((prev) => !prev);
