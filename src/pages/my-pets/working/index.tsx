@@ -19,6 +19,7 @@ const recordsPerPage = 4;
 import contractAddress from "../../../constants/contractAddress";
 import { useAccount, useContract, useContractRead, usePrepareContractWrite, useProvider, useSigner } from "wagmi";
 import { BigNumber } from "ethers";
+import Functions from "components/page/my-pets-working/Functions";
 const AUNIAddress =contractAddress.AUNIAddress;
 const NFTAddress = contractAddress.NFTAddress;
 const StakingAddress= contractAddress.StakingAddress;
@@ -26,8 +27,13 @@ const StakingAddress= contractAddress.StakingAddress;
 
 const Index: NextPage = () => {
   
-  const [listItems, setListItems] = useState<any>([]);
+  // const [listItems, setListItems] = useState<any>([]);
   const [stakingList, setStakingList] = useState<any>([]);
+  const [tokenIds, setTokenIds] = useState<any>([]);
+
+
+
+
   const { isConnected,address } = useAccount();
   const provider = useProvider();
   const { data:signer } = useSigner();
@@ -36,24 +42,27 @@ const Index: NextPage = () => {
     contractInterface:Staking_NFT.abi,
     signerOrProvider:signer || provider
   });
-  const {
-    data : tokenIds,
-  } = useContractRead({
-    addressOrName: StakingAddress,
-    contractInterface: Staking_NFT.abi,
-    functionName: 'getStakedTokens',
-    args: [address],
-  });
 
-  // const {
-  //   config : approvalConfig
-  // } = usePrepareContractWrite({
-  //   addressOrName: StakingAddress,
-  //   contractInterface: Staking_NFT.abi,
-  //   functionName: 'unstake',
-  //   args:[StakingAddress,true]
-  // });
-  // const { data :dataApproval, isLoading : isApprovalLoading, isSuccess : isApprovalSuccess, write  :approval} = useContractWrite(approvalConfig);
+  const getStakedIds = useCallback(async ()=>{
+    try{
+      if(!stakingContract || !address) return;
+      const ids = await stakingContract?.getStakedTokens(address);
+      if(ids) setTokenIds([...ids]);
+    }catch(e){
+      //
+    }
+  },[stakingContract,address]);
+
+  const reLoadIds = useCallback(()=>{
+    getStakedIds();
+  },[getStakedIds]);
+
+
+
+
+  useEffect(()=>{
+    getStakedIds();
+  },[getStakedIds]);
 
 
   const getReward = useCallback(async (id :number)=>{
@@ -71,7 +80,7 @@ const Index: NextPage = () => {
    
   const fetch = useCallback(async ()=>{
     if(!tokenIds || !tokenIds.length) return;
-    const list = await Promise.all(tokenIds.map(async id => {
+    const list = await Promise.all(tokenIds.map(async (id : any) => {
       return {
         images:getLayersByTokenIndex(layers,id),
         id : BigNumber.from(id._hex).toNumber(),
@@ -83,6 +92,8 @@ const Index: NextPage = () => {
     );
     setStakingList(list);
   },[tokenIds,getReward]);
+
+
   useEffect(()=>{
     fetch();
   },[tokenIds,fetch]);
@@ -93,33 +104,27 @@ const Index: NextPage = () => {
     [router.query.page],
   );
   const totalPages = Math.ceil(stakingList.length / recordsPerPage);
-  const generateDataOnPage = useCallback((page: number, size: number) => {
-    const offset = (page - 1) * size;
 
-    if (offset + size > stakingList.length) {
+
+
+
+
+  const listItems = useMemo(() => {
+    const offset = (page - 1) * recordsPerPage;
+    if (offset + recordsPerPage > stakingList.length) {
       return stakingList.slice(offset, stakingList.length);
     } else {
-      return stakingList.slice(offset, offset + size);
+      return stakingList.slice(offset, offset + recordsPerPage);
     }
-  },[stakingList]);
+  }, [page,stakingList]);
 
-
-  const loadListItem = useCallback(() => {
-    setListItems(generateDataOnPage(page, recordsPerPage));
-  }, [page,generateDataOnPage]);
-
-
-
-  useEffect(() => {
-    loadListItem();
-  }, [loadListItem]);
 
   return (
     <>
   
       <TitleBar title="MY PETS > WORKING" />
       <div className="mb-[30px]">
-        <TableCustom data={listItems} titleRow={titleRow} />
+        <TableCustom data={listItems} titleRow={titleRow}/>
       </div>
 
       {listItems.length > 0 && (
@@ -143,15 +148,6 @@ const titleRow = [
   { title: "REWARD(BUSD)", field: "reward" },
   {
     title: "FUNCTION",
-    field: (id?: string, data?: any) => (
-      <div className="flex justify-center gap-[40px]">
-        <button className="button min-w-[127px] border-white border-[3px] rounded-[15px] text-[25px] px-[8px]">
-          CLAIM
-        </button>
-        <button className="button min-w-[127px] border-white border-[3px] rounded-[15px] text-[25px] px-[8px]">
-          UNSTAKE
-        </button>
-      </div>
-    ),
+    field: (id?: string, data?: any , handleReload?:any) => <Functions id={id} data  ={data} handleReload={handleReload} />
   },
 ];

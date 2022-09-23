@@ -43,7 +43,7 @@ const TableCustom = ({ data, titleRow }: TableCustom): JSX.Element => {
                     row[col.field]
                   )
                 ) : (
-                  col.field(idx, row)
+                  col.field(row.id, row)
                 )}
               </td>
             ))}

@@ -52,7 +52,7 @@ const Index: NextPage = () => {
         }
       />
       <div className="mb-[30px]">
-        <TableCustom data={listItems} titleRow={titleRow} />
+        <TableCustom data={listItems} titleRow={titleRow}/>
       </div>
 
       {listItems.length > 0 && (
