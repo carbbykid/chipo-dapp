@@ -23,16 +23,27 @@ const Functions = ({id, data, handleReload}: {id:string | undefined, data:any,ha
     addressOrName: StakingAddress,
     contractInterface: Staking_NFT.abi,
     functionName: 'unstake',
-    args:[address,id]
+    args:[address,id],
+    enabled:false,
+    // onSuccess(data) {
+    //     sleep(4000).then(handleReload);
+    //     // reload();
+    // },
     });
     // console.log("error",error);
-    const { data :dataUnstake, isLoading : isUnstakeLoading, isSuccess : isUnstakeSuccess, write  :unstake} = useContractWrite(unstakeConfig);
+    const { data :dataUnstake, isLoading : isUnstakeLoading, isSuccess : isUnstakeSuccess, write :unstake} = useContractWrite(unstakeConfig);
 
     const {
         isSuccess: txSuccessUnStake,
       } = useWaitForTransaction({
         hash: dataUnstake?.hash,
     });
+
+
+
+    const sleep = (ms:any) => new Promise(r => setTimeout(r, ms));
+
+
     
     
 
@@ -58,8 +69,11 @@ const Functions = ({id, data, handleReload}: {id:string | undefined, data:any,ha
 
     const unstakeSuccess = txSuccessUnStake;
     if(unstakeSuccess) {
+        
         handleReload();
     }
+    // console.log("Reloaded");
+
 
 
     return (

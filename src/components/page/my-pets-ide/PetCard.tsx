@@ -54,13 +54,14 @@ const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetA
 
   const {
     config : stakeConfig,
- 
+    error
   } = usePrepareContractWrite({
     addressOrName: StakingAddress,
     contractInterface: Staking_NFT.abi,
     functionName: 'stake',
     args: [tokenId],
   });
+  console.log("error",error);
   const { data :dataStake, isLoading : isLoading, isSuccess : isSuccess, write  :stake} = useContractWrite(stakeConfig);
 
 
