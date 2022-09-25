@@ -43,6 +43,15 @@ const PetWorking = ({ row,titleRow,idx}: {titleRow:any, row:any,idx:any} ): JSX.
       });
 
     //   console.log("rewards",rewards);
+
+    const {
+        data : rare,
+      } = useContractRead({
+        addressOrName: NFTAddress,
+        contractInterface: ABI_NFT.abi,
+        functionName: 'getRare',
+        args: [row.id],
+      });
     
 
     const {
@@ -91,8 +100,14 @@ const PetWorking = ({ row,titleRow,idx}: {titleRow:any, row:any,idx:any} ): JSX.
                 {col.field === "reward" && (
                     new Decimal(BigNumber.from(rewards?._hex || 0).toString()).div(Math.pow(10, 18)).toString().substring(0,5)
                 )}
-                {(col.field === "id"  || col.field === "rank" || col.field === "land") && (
+                {(col.field === "id") && (
                     row[col.field]
+                )}
+                {(col.field === "rank") && (
+                    Rare[rare as unknown as number||0] 
+                )}
+                {( col.field === "land") && (
+                    Land[rare as unknown as number||0] 
                 )}
                 {col.field === "functions" && (
                     <>
@@ -139,3 +154,24 @@ const PetWorking = ({ row,titleRow,idx}: {titleRow:any, row:any,idx:any} ): JSX.
 };
 export default PetWorking;
 
+
+enum Rare {
+    COMMON,
+    RARE,
+    SUPERRARE,
+    EPIC,
+    SUPEREPIC,
+    LEGENDARY,
+    LEGEND,
+    SUPREME,
+  }
+  
+  
+  enum Land {
+    Pellucidar,
+    NEVER,
+    ShangriLa,
+    MiddleEarth,
+    Narnia,
+    DREAM,
+  }
