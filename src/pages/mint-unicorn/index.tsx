@@ -155,7 +155,7 @@ const Index: NextPage = () => {
         toggleActions: "play none none none",
       },
       duration: 8,
-      y: -150,
+      y: -90,
       repeat: -1,
       yoyo: true,
       ease: "power1.inOut",
