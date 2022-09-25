@@ -66,6 +66,15 @@ const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetA
 
 
   const {
+    data : rare,
+  } = useContractRead({
+    addressOrName: NFTAddress,
+    contractInterface: ABI_NFT.abi,
+    functionName: 'getRare',
+    args: [tokenId],
+  });
+
+  const {
    
     isSuccess: txSuccessStake,
   } = useWaitForTransaction({
@@ -104,7 +113,7 @@ const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetA
 
         <div className="flex justify-between">
           <div className="text-[25px]">RANK</div>
-          <div className="text-[25px]">{data.rarity}</div>
+          <div className="text-[25px]">{ Rare[rare as unknown as number||0] }</div>
         </div>
       </div>
 
@@ -153,3 +162,14 @@ const PetCard = ({ approved, handleSetAproved ,data }: {approved:any, handleSetA
 };
 
 export default PetCard;
+
+enum Rare {
+  COMMON,
+  RARE,
+  SUPERRARE,
+  EPIC,
+  SUPEREPIC,
+  LEGENDARY,
+  LEGEND,
+  SUPREME,
+}
