@@ -153,25 +153,25 @@ const Index: NextPage = () => {
           <div className="relative w-full h-full">
             <img
               className="w-[879px] left-1/2 -translate-x-1/2 absolute z-[5]"
-              src="/images/mint-unicorn/mint-domdom.png"
+              src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-domdom.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               className="w-[936px] bottom-[238px] absolute z-[4]"
-              src="/images/mint-unicorn/mint-before-cloud.png"
+              src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-before-cloud.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               className="w-[307px] absolute left-1/2 -translate-x-1/2 bottom-[213px] z-[3]"
-              src="/images/mint-unicorn/mint-egg.png"
+              src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-egg.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               className="w-[774px] left-1/2 -translate-x-1/2 bottom-[16px] absolute z-[2]"
-              src="/images/mint-unicorn/mint-after-cloud.png"
+              src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-after-cloud.png"
               alt="aqua-dapp"
               // layout='fill'
             />

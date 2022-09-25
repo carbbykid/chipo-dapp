@@ -106,7 +106,7 @@ const PetWorking = ({ row,titleRow,idx}: {titleRow:any, row:any,idx:any} ): JSX.
                       }} 
                       className="button min-w-[127px] border-white border-[3px] rounded-[15px] text-[25px] px-[8px]">
                       {isClaimLoading && 'Waiting for approval'}
-                      {isClaimSuccess && 'Claiming...'}
+                      {isClaimSuccess && !claimSuccess && 'Claiming...'}
                       {claimSuccess && 'Claimed'}
                       {!isClaimLoading && !isClaimSuccess && 'Claim'}
                     </button>
