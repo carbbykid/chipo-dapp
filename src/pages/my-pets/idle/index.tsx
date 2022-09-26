@@ -1,7 +1,6 @@
 import TitleBar from "components/layout/TitleBar";
 import NumberInputSpinner from "components/page/mint-unicorn/NumberInputSpinner";
 import type { NextPage } from "next";
-import Head from "next/head";
 import getLayersByTokenIndex from "../../../engine";
 import layers from "../../../../layers/layer.json";
 import {
@@ -17,38 +16,36 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import ABI_AUNI from "../../../../contracts/tAquaUnicorn";
 import ABI_NFT from "../../../../contracts/tAquaUnicornNFT";
 import { BigNumber } from "ethers";
-import Image from "next/image";
 import PetCard from "components/page/my-pets-ide/PetCard";
 
-
-
 import contractAddress from "../../../constants/contractAddress";
-const AUNIAddress =contractAddress.AUNIAddress;
+const AUNIAddress = contractAddress.AUNIAddress;
 const NFTAddress = contractAddress.NFTAddress;
-const StakingAddress= contractAddress.StakingAddress;
-
+const StakingAddress = contractAddress.StakingAddress;
 
 const Index: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const { isConnected,address } = useAccount();
+  const { isConnected, address } = useAccount();
   const [approved, setApproved] = useState(false);
 
   const [amount, setAmount] = useState(1);
   const [tokenIds, setTokenIds] = useState<Array<number>>([]);
 
-  const handleSetApproved = useCallback((value:any)=>{
-    setApproved(value);
-  },[setApproved]);
+  const handleSetApproved = useCallback(
+    (value: any) => {
+      setApproved(value);
+    },
+    [setApproved],
+  );
 
-  const {data: singer} = useSigner();
+  const { data: singer } = useSigner();
 
   const contract = useContract({
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
     signerOrProvider: singer,
   });
-
 
   const { data: balance } = useContractRead({
     cacheOnBlock: true,
@@ -58,21 +55,19 @@ const Index: NextPage = () => {
     args: [address],
   });
 
-  const {
-    data: isApprored
-  } = useContractRead({
-    cacheOnBlock:true,
+  const { data: isApprored } = useContractRead({
+    cacheOnBlock: true,
     addressOrName: NFTAddress,
     contractInterface: ABI_NFT.abi,
-    functionName: 'isApprovedForAll',
-    args:[address,StakingAddress]
+    functionName: "isApprovedForAll",
+    args: [address, StakingAddress],
   });
 
-  useEffect(()=>{
-    if(isApprored){
+  useEffect(() => {
+    if (isApprored) {
       setApproved(true);
     }
-  },[isApprored]);
+  }, [isApprored]);
 
   const fetchToken = useCallback(async () => {
     try {
@@ -115,7 +110,12 @@ const Index: NextPage = () => {
       <TitleBar title="MY PETS > IDE" />
       <div className="flex flex-wrap gap-[55px] justify-center">
         {listNFT.map((data, idx) => (
-          <PetCard approved={approved} handleSetAproved={handleSetApproved} key={idx} data={data} />
+          <PetCard
+            approved={approved}
+            handleSetAproved={handleSetApproved}
+            key={idx}
+            data={data}
+          />
         ))}
       </div>
     </>

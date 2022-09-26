@@ -195,5 +195,5 @@ const menuItems = [
     note: "COMING SOON",
     disabled: true,
   },
-  { id: 8, label: "TRANSFER NFT", icon: "", link: "/transfer-nft" },
+  // { id: 8, label: "TRANSFER NFT", icon: "", link: "/transfer-nft" },
 ];

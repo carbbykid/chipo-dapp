@@ -2,7 +2,6 @@ import Pagination from "components/common/Pagination";
 import TableCustom from "components/common/TableCustom";
 import TitleBar from "components/layout/TitleBar";
 import type { NextPage } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -52,7 +51,7 @@ const Index: NextPage = () => {
         }
       />
       <div className="mb-[30px]">
-        <TableCustom data={listItems} titleRow={titleRow}/>
+        <TableCustom data={listItems} titleRow={titleRow} />
       </div>
 
       {listItems.length > 0 && (

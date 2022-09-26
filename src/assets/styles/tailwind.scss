@@ -12,7 +12,7 @@
     }
 
     .button {
-        @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second duration-200 ease-in disabled:opacity-25
+        @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second duration-200 ease-in disabled:opacity-25 disabled:hover:bg-aqua-pink
     }
 
     .col-primary {
