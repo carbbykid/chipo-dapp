@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TransferPopup from "./popups/transferPopup";
+import TransferPopup from "./popups/TransferPopup";
 
 const PopupCustom = ({
   data,
