@@ -3,47 +3,45 @@
 @tailwind utilities;
 
 @layer components {
-    .tittle {
+  .tittle {
+  }
 
-    }
+  .subtitle {
+    @apply text-aqua-pink;
+  }
 
-    .subtitle {
-        @apply text-aqua-pink
-    }
+  .button {
+    @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second duration-200 ease-in disabled:opacity-25 disabled:hover:bg-aqua-pink;
+  }
 
-    .button {
-        @apply py-[3px] px-[9px] bg-aqua-pink rounded-[15px] hover:bg-aqua-pink-second duration-200 ease-in disabled:opacity-25 disabled:hover:bg-aqua-pink
-    }
+  .col-primary {
+    @apply border-b-[3px] border-aqua-pink border-r-[3px] w-1/2;
+  }
 
-    .col-primary {
-       @apply border-b-[3px] border-aqua-pink border-r-[3px] w-1/2
-    }
+  .col-secondary {
+    @apply border-b-[3px] border-aqua-pink w-1/2;
+  }
 
-    .col-secondary {
-       @apply border-b-[3px] border-aqua-pink w-1/2
+  .pagination-item {
+    @apply m-2 text-[20px] flex items-center justify-center;
+    button {
+      @apply rounded-full w-[40px] h-[40px] p-2 cursor-pointer hover:text-aqua-pink-second flex items-center justify-center;
+      &.active {
+        @apply bg-aqua-pink text-white;
+      }
     }
-
-    .pagination-item {
-        @apply m-2 text-[20px] flex items-center justify-center;
-        button {
-          @apply rounded-full w-[40px] h-[40px] p-2 cursor-pointer hover:text-aqua-pink-second flex items-center justify-center;
-          &.active {
-            @apply bg-aqua-pink text-white;
-          }
-        }
-    }
+  }
 }
 
 .aqua-sidebar {
-    &::before {
-        content: "";
-        background:#130945;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        opacity: 50%;
-        z-index: 11;
-        border-radius: 25px;
-    }
+  &::before {
+    content: "";
+    background: #130945;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 50%;
+    z-index: 11;
+    border-radius: 0 25px 25px 0;
+  }
 }
-

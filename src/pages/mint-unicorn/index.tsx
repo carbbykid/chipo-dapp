@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import TitleBar from "components/layout/TitleBar";
 import NumberInputSpinner from "components/page/mint-unicorn/NumberInputSpinner";
 import type { NextPage } from "next";
@@ -217,40 +218,40 @@ const Index: NextPage = () => {
   return (
     <>
       <TitleBar title="Mint Unicorn" />
-      <div className="relative flex -mt-[140px]">
-        <div className="absolute -left-[40px] w-[936px] h-[929px]">
-          <div className="relative w-full h-full">
+      <div className="relative flex flex-col">
+        <div className="relative md:absolute left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-[40px] w-[936px] max-w-full h-[50vh] md:h-[929px]">
+          <div className="relative w-full h-full overflow-hidden">
             <img
               ref={domdom1}
-              className="w-[879px] left-1/2 -translate-x-1/2 absolute z-[6]"
+              className="w-[879px] max-w-full left-1/2 -translate-x-1/2 absolute z-[6]"
               src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-domdom.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               ref={domdom}
-              className="w-[879px] left-1/2 -translate-x-1/2 absolute z-[5]"
+              className="w-[879px] max-w-full left-1/2 -translate-x-1/2 absolute z-[5]"
               src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-domdom.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               ref={cloudBefore}
-              className="w-[936px] bottom-[238px] absolute z-[4]"
+              className="w-[936px] max-w-full bottom-[238px] absolute z-[4]"
               src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-before-cloud.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               ref={egg}
-              className="w-[307px] absolute left-1/2 -translate-x-1/2 bottom-[213px] z-[3]"
+              className="w-[307px] max-w-full absolute left-1/2 -translate-x-1/2 top-4 z-[3]"
               src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-egg.png"
               alt="aqua-dapp"
               // layout='fill'
             />
             <img
               ref={cloudAfter}
-              className="w-[774px] left-1/2 -translate-x-1/2 bottom-[16px] absolute z-[2]"
+              className="w-[774px] max-w-full left-1/2 -translate-x-1/2 bottom-[16px] absolute z-[2]"
               src="https://gokademo.s3.ap-southeast-1.amazonaws.com/images/mint-unicorn/mint-after-cloud.png"
               alt="aqua-dapp"
               // layout='fill'
@@ -258,7 +259,7 @@ const Index: NextPage = () => {
           </div>
         </div>
         <div className="flex-1"></div>
-        <div className="pt-[140px] flex-1 relative z-10 mr-[60px] mb-[40px]">
+        <div className="pt-[140px] flex-1 relative z-10">
           <h3 className="text-[40px] mb-[33px]">UNICORN EGGS</h3>
           <p className="text-[25px] mb-[31px] leading-[30px]">
             - Each Unicorn Egg costs 10,000 AUNI <br />- Rarity Level Ratio:

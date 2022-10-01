@@ -20,6 +20,7 @@ import { WagmiConfig } from "wagmi";
 import Head from "next/head";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
+import Header from "components/layout/Header";
 // Get Your projectId at https://cloud.walletconnect.com
 const WC_PROJECT_ID = "a5894fa021b22d287d96ddc0a910f1a6";
 
@@ -86,29 +87,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <div className="flex z-10 relative min-h-screen">
             <Sidebar />
             <div className="flex flex-col flex-1 p-4 border-1 border-dashed">
-              <div>
-                <div className="flex justify-between items-center md:hidden">
-                  <Link href={"/"}>
-                    <a className="border-[#d581ab] flex items-center">
-                      <img
-                        src="/images/logo.png"
-                        alt="logo"
-                        className="w-[60px] h-[60px]"
-                      />
-                      <span className={`text-[#e87481] text-xl flex flex-col`}>
-                        <span>AQUA</span>
-                        <span>UNICORN</span>
-                      </span>
-                    </a>
-                  </Link>
-                  <div className="flex items-start gap-4">
-                    <ConnectBar />
-                    <FaBars className="text-xl" />
-                    {/* <span>icon</span> */}
-                  </div>
-                </div>
-              </div>
-
+              {/* <ConnectBar /> */}
+              <Header />
               <Component {...pageProps} />
             </div>
           </div>

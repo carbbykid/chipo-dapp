@@ -46,8 +46,12 @@ const ConnectBar = () => {
                 {(() => {
                   if (!mounted || !account || !chain) {
                     return (
-                      <button onClick={openConnectModal} type="button">
-                        {/* Connect Wallet  */}
+                      <button
+                        onClick={openConnectModal}
+                        type="button"
+                        className="flex gap-2 items-center"
+                      >
+                        <span className="hidden md:block">Connect Wallet</span>{" "}
                         <FaWallet />
                       </button>
                     );
@@ -62,7 +66,7 @@ const ConnectBar = () => {
                   }
 
                   return (
-                    <div style={{ display: "flex", gap: 12 }}>
+                    <div className="flex gap-2 flex-col md:flex-row">
                       <button
                         onClick={openChainModal}
                         style={{ display: "flex", alignItems: "center" }}
