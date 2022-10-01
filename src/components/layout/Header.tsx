@@ -20,7 +20,7 @@ const Header = () => {
       </Link>
       <div className="flex gap-2 items-center">
         <ConnectBar />
-        <div className="block md:hidden">
+        <div className="block md:hidden z-50">
           <SidebarMobile />
         </div>
       </div>

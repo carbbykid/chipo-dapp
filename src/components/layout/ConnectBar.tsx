@@ -66,7 +66,7 @@ const ConnectBar = () => {
                   }
 
                   return (
-                    <div className="flex gap-2 flex-col md:flex-row">
+                    <div className="flex gap-2 flex-col md:flex-row text-base md:text-xl">
                       <button
                         onClick={openChainModal}
                         style={{ display: "flex", alignItems: "center" }}
