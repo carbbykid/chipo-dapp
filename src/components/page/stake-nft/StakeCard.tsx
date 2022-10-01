@@ -24,11 +24,11 @@ const StakeCard = ({ data }: { data: any }): JSX.Element => {
   }, []);
 
   return (
-    <div className="w-[475px] border-[5px] rounded-[25px] border-aqua-pink p-[20px] shrink-0 relative hover:bg-[#000033] ease-in duration-200">
-      <div className="text-[40px] mb-[20px] absolute top-[15px] text-right right-[15px] whitespace-pre-line">
+    <div className="w-full md:w-[475px] border-[5px] rounded-[25px] border-aqua-pink p-[20px] shrink-0 relative hover:bg-[#000033] ease-in duration-200">
+      <div className="text-2xl md:text-[40px] mb-[20px] absolute top-[15px] text-right right-[15px] whitespace-pre-line">
         {data.title}
       </div>
-      <div className="flex items-end mb-[10px]">
+      <div className="relative mb-2">
         <img
           ref={land1}
           className="w-[282px] h-[275px]"
@@ -36,7 +36,7 @@ const StakeCard = ({ data }: { data: any }): JSX.Element => {
           alt="AQUA-DApp"
         />
         <Link href={"my-pets/idle"}>
-          <a className="button border-white border-[3px] rounded-[15px] text-[25px] px-[20px]">
+          <a className="button border-white border-[3px] rounded-[15px] text-[25px] px-[20px] absolute bottom-0 right-0">
             Stake
           </a>
         </Link>

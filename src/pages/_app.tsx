@@ -18,6 +18,9 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { WagmiConfig } from "wagmi";
 import Head from "next/head";
+import Link from "next/link";
+import { FaBars } from "react-icons/fa";
+import Header from "components/layout/Header";
 // Get Your projectId at https://cloud.walletconnect.com
 const WC_PROJECT_ID = "a5894fa021b22d287d96ddc0a910f1a6";
 
@@ -84,7 +87,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <div className="flex z-10 relative min-h-screen">
             <Sidebar />
             <div className="flex flex-col flex-1 p-4 border-1 border-dashed">
-              <ConnectBar />
+              {/* <ConnectBar /> */}
+              <Header />
               <Component {...pageProps} />
             </div>
           </div>

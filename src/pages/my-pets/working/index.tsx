@@ -63,7 +63,7 @@ const Index: NextPage = () => {
   }, [getStakedIds]);
 
   // getStakedIds();
-  
+
   const getReward = useCallback(
     async (id: number) => {
       try {
@@ -95,7 +95,7 @@ const Index: NextPage = () => {
   }, [getReward, tokenIds]);
 
   useEffect(() => {
-  fetch();
+    fetch();
   }, [fetch]);
 
   const router = useRouter();
@@ -117,7 +117,7 @@ const Index: NextPage = () => {
   return (
     <>
       <TitleBar title="MY PETS > WORKING" />
-      <div className="mb-[30px]">
+      <div className="mb-[30px] w-[calc(100vw_-_2rem)] md:w-auto max-w-full md:max-w-[calc(100vw_-_(2rem_+_330px))] overflow-x-auto border-[3px] border-aqua-pink rounded-2xl">
         <TableCustom
           data={listItems}
           titleRow={titleRow}
@@ -145,7 +145,7 @@ const titleRow = [
   { title: "LAND", field: "land" },
   { title: "REWARD(BUSD)", field: "reward" },
   {
-    title: "FUNCTION", field: "functions" 
+    title: "FUNCTION",
+    field: "functions",
   },
 ];
-

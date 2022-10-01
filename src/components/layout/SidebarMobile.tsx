@@ -3,8 +3,9 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
+import { FaBars } from "react-icons/fa";
 
-const Sidebar = () => {
+const SidebarMobile = () => {
   const [toggleCollapse, setToggleCollapse] = useState(true);
 
   const router = useRouter();
@@ -59,9 +60,13 @@ const Sidebar = () => {
 
   return (
     <>
+      <FaBars
+        className="text-2xl cursor-pointer"
+        onClick={() => setToggleCollapse((toggleCollapse) => !toggleCollapse)}
+      />
       <div
-        className={`aqua-sidebar border-[#d581ab] border-t-2 border-r-2 rounded-r-[25px]  ease-in duration-300 absolute md:relative bg-[#6c5454] md:bg-transparent h-full md:h-auto w-[345px] z-50 ${
-          toggleCollapse ? "-left-full md:left-0" : "left-0"
+        className={`aqua-sidebar border-[#d581ab] border-t-2 border-r-2 rounded-r-[25px] ease-in duration-300 bg-[#6c5454] md:bg-transparent h-full md:h-auto w-[345px] z-50 absolute top-0 ${
+          toggleCollapse ? "-left-full" : "left-0"
         } `}
         // onMouseEnter={handleOnMouse}
         // onMouseLeave={handleOnMouse}
@@ -84,13 +89,6 @@ const Sidebar = () => {
                 </span>
               </a>
             </Link>
-            <button
-              className={`absolute right-5 top-5 rounded p-4 md:hidden`}
-              onClick={() => setToggleCollapse((prev) => !prev)}
-            >
-              {/* <FaAngleDoubleLeft className="w-[25px] h-[25px]" /> */}
-              icon
-            </button>
           </div>
           <div>
             {menuItems.map((menu) => {
@@ -98,7 +96,10 @@ const Sidebar = () => {
               return (
                 <div key={menu.id} className={`${classes}`}>
                   <Link href={menu.link}>
-                    <a className="w-full h-full px-[30px] py-[17px] block hover:bg-[#000033] ease-in duration-200">
+                    <a
+                      className="w-full h-full px-[30px] py-[17px] block hover:bg-[#000033] ease-in duration-200"
+                      onClick={() => setToggleCollapse(true)}
+                    >
                       {menu.label}
                       {menu.note && (
                         <span className="text-[#e3d752] text-[12px] ml-[9px]">
@@ -114,7 +115,10 @@ const Sidebar = () => {
                         return (
                           <div key={idx} className={classesSub}>
                             <Link href={submenu.link}>
-                              <a className="w-full h-full px-[30px] py-[8px] block hover:bg-[#000033]">
+                              <a
+                                className="w-full h-full px-[30px] py-[8px] block hover:bg-[#000033]"
+                                onClick={() => setToggleCollapse(true)}
+                              >
                                 {submenu.label}
                               </a>
                             </Link>
@@ -133,7 +137,7 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarMobile;
 
 const menuItems = [
   { id: 1, label: "DASHBOARD", icon: "", link: "/dashboard" },
