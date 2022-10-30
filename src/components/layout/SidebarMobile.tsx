@@ -167,8 +167,7 @@ const menuItems = [
     label: "MARKET PLACE",
     icon: "",
     link: "/market-place",
-    note: "COMING SOON",
-    disabled: true,
+    disabled: false,
   },
   { id: 5, label: "STAKE NFT", icon: "", link: "/stake-nft" },
   {

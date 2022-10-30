@@ -92,19 +92,29 @@ const PetWorking = ({
                 className={`pt-[32px] min-w-[110px] whitespace-pre-line`}
                 key={idx}
               >
-                {idx === 0 && (
+                {idx === 0 ? (
                   <div className="collections_preview__listItemImageBox">
-                    {row.images.map((img: any, index: number) => (
+                    {/* {row?.images?.map((img: any, index: number) => (
                       <img
                         key={`image_${index}`}
                         className="w-[131px] mx-auto my-0 border-[3px] rounded-[15px] border-aqua-pink"
-                        src={img.path}
+                        src={row.pet}
                         alt="aqua-nft"
                       />
-                    ))}
+                    ))} */}
+
+                    <img
+                      className="w-[131px] mx-auto my-0 border-[3px] rounded-[15px] border-aqua-pink"
+                      src={row.pet}
+                      alt="aqua-nft"
+                    />
                   </div>
+                ) : typeof col.field !== "string" ? (
+                  col.field(idx, row)
+                ) : (
+                  row[col.field]
                 )}
-                {col.field === "reward" &&
+                {/* {col.field === "reward" &&
                   new Decimal(BigNumber.from(rewards?._hex || 0).toString())
                     .div(Math.pow(10, 18))
                     .toString()
@@ -142,12 +152,12 @@ const PetWorking = ({
                       >
                         {isUnstakeLoading && "Waiting for approval"}
                         {isUnstakeSuccess && "Unstaking..."}
-                        {/* {UnstakeSuccess && 'Claimed'} */}
+                        {UnstakeSuccess && 'Claimed'}
                         {!isUnstakeLoading && !isUnstakeSuccess && "Unstake"}
                       </button>
                     </div>
                   </>
-                )}
+                )} */}
               </td>
             ))}
           </tr>

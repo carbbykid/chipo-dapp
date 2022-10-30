@@ -123,8 +123,8 @@ const Pagination = ({
   }, [currentPage]);
 
   return (
-    <div>
-      <ul className="flex items-center justify-center">
+    <div className="w-[calc(100vw_-_2rem)] md:w-auto max-w-full md:max-w-[calc(100vw_-_(2rem_+_330px))] overflow-x-scroll">
+      <ul className="flex md:items-center md:justify-center">
         <li className="pagination-item">
           <button
             onClick={onClickFirstPage}

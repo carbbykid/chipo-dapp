@@ -40,17 +40,17 @@ const Index: NextPage = () => {
       <TitleBar
         title="MARKET PLACE"
         element={
-          <div className="flex mb-[40px] text-[25px]">
-            <button className="button ml-[51px] py-[3px] px-[23px]">
+          <div className="flex mb-[40px] text-[25px] gap-2 justify-between md:justify-end md:gap-0">
+            <button className="button md:ml-[51px] md:py-[3px] py-[3px] px-[10px] md:px-[23px]">
               Filter price
             </button>
-            <button className="button ml-[51px] py-[3px] px-[23px]">
+            <button className="button md:ml-[51px] md:py-[3px] py-[3px] px-[10px] md:px-[23px]">
               Filter rank
             </button>
           </div>
         }
       />
-      <div className="mb-[30px]">
+      <div className="mb-[30px] w-[calc(100vw_-_2rem)] md:w-auto max-w-full md:max-w-[calc(100vw_-_(2rem_+_330px))] overflow-x-auto border-[3px] border-aqua-pink rounded-2xl">
         <TableCustom data={listItems} titleRow={titleRow} />
       </div>
 

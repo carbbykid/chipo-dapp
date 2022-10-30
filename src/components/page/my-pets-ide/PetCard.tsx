@@ -96,14 +96,20 @@ const PetCard = ({
       {!stakeSuccess && (
         <div className="collections_preview__listItem w-[320px] border-[5px] rounded-[25px] border-aqua-pink p-[20px] hover:bg-[#000033] ease-in duration-200">
           <div className="collections_preview__listItemImageBox">
-            {data.images.map((img: any, idx: number) => (
+            {/* {data.images.map((img: any, idx: number) => (
               <img
                 key={`image_${idx}`}
                 className="w-[290px] h-[290px] border-[1px] border-aqua-pink rounded-[25px] top-[0] "
                 src={img.path}
                 alt="AQUA-DApp"
               />
-            ))}
+            ))} */}
+
+            <img
+              className="w-[290px] h-[290px] border-[1px] border-aqua-pink rounded-[25px] top-[0] "
+              src={data.imgURL}
+              alt="AQUA-DApp"
+            />
           </div>
 
           <div className="my-[20px]">

@@ -109,7 +109,7 @@ const Index: NextPage = () => {
     <>
       <TitleBar title="MY PETS > IDE" />
       <div className="flex flex-wrap gap-[55px] justify-center">
-        {listNFT.map((data, idx) => (
+        {dataFake.map((data, idx) => (
           <PetCard
             approved={approved}
             handleSetAproved={handleSetApproved}

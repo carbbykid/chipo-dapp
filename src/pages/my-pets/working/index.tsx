@@ -103,16 +103,16 @@ const Index: NextPage = () => {
     () => Number(router.query.page) || 1,
     [router.query.page],
   );
-  const totalPages = Math.ceil(stakingList.length / recordsPerPage);
+  const totalPages = Math.ceil(mockData.length / recordsPerPage);
 
   const listItems = useMemo(() => {
     const offset = (page - 1) * recordsPerPage;
-    if (offset + recordsPerPage > stakingList.length) {
-      return stakingList.slice(offset, stakingList.length);
+    if (offset + recordsPerPage > mockData.length) {
+      return mockData.slice(offset, mockData.length);
     } else {
-      return stakingList.slice(offset, offset + recordsPerPage);
+      return mockData.slice(offset, offset + recordsPerPage);
     }
-  }, [page, stakingList]);
+  }, [page, mockData]);
 
   return (
     <>
@@ -138,6 +138,201 @@ const Index: NextPage = () => {
 
 export default Index;
 
+const mockData: any = [
+  {
+    pet: "/images/my-pets/my-pet-5.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-4.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-9.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-8.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-1.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-2.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-3.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-4.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-5.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-6.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-7.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-8.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-5.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-4.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-9.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-8.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-1.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-2.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-3.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-4.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-5.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-6.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-7.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+  {
+    pet: "/images/my-pets/my-pet-8.png",
+    id: "123456",
+    rank: "supreme",
+    land: "vinteno",
+    time: "14:05:49",
+    reward: "35.45",
+  },
+];
+
 const titleRow = [
   { title: "PET", field: "pet" },
   { title: "ID", field: "id" },
@@ -146,6 +341,15 @@ const titleRow = [
   { title: "REWARD(BUSD)", field: "reward" },
   {
     title: "FUNCTION",
-    field: "functions",
+    field: (id?: string, data?: any) => (
+      <div className="flex justify-center gap-[40px]">
+        <button className="button min-w-[127px] border-white border-[3px] rounded-[15px] text-[25px] px-[8px]">
+          CLAIM
+        </button>
+        <button className="button min-w-[127px] border-white border-[3px] rounded-[15px] text-[25px] px-[8px]">
+          UNSTAKE
+        </button>
+      </div>
+    ),
   },
 ];
